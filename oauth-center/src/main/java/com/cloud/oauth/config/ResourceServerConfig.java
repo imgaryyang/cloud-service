@@ -31,7 +31,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.requestMatcher(new OAuth2RequestedMatcher()).authorizeRequests()
-				.antMatchers(PermitAllUrl.permitAllUrl()).permitAll() // 放开权限的url
+				// 放开权限的url
+				.antMatchers(PermitAllUrl.permitAllUrl()).permitAll()
 				.anyRequest().authenticated();
 	}
 

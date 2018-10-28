@@ -61,6 +61,13 @@ public class BlackIPAccessFilter extends ZuulFilter {
 		return 0;
 	}
 
+	/**
+	 * pre：可以在请求被路由之前调用
+	 route：在路由请求时候被调用
+	 post：在route和error过滤器之后被调用
+	 error：处理请求时发生错误时被调用
+	 * @return
+	 */
 	@Override
 	public String filterType() {
 		return FilterConstants.PRE_TYPE;
@@ -75,8 +82,8 @@ public class BlackIPAccessFilter extends ZuulFilter {
 	@Scheduled(cron = "${cron.black-ip}")
 	public void syncBlackIPList() {
 		try {
-			Set<String> list = backendClient.findAllBlackIPs(Collections.emptyMap());
-			blackIPs = list;
+			Set<String> set = backendClient.findAllBlackIPs(Collections.emptyMap());
+			blackIPs = set;
 		} catch (Exception e) {
 			// do nothing
 		}

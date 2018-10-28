@@ -42,7 +42,8 @@ public class FileServiceFactory {
 	 * @return
 	 */
 	public FileService getFileService(String fileSource) {
-		if (StringUtils.isBlank(fileSource)) {// 默认用本地存储
+		// 默认用本地存储
+		if (StringUtils.isBlank(fileSource)) {
 			return localFileServiceImpl;
 		}
 

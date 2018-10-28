@@ -36,7 +36,7 @@ import java.util.Map;
  * @author 小威老师 xiaoweijiagou@163.com
  */
 @Configuration
-@EnableAuthorizationServer
+@EnableAuthorizationServer // 授权服务器
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
@@ -118,9 +118,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             Object principal = userAuthentication.getPrincipal();
             if (principal instanceof LoginAppUser) {
                 LoginAppUser loginUser = (LoginAppUser) principal;
-
-                Map<String, Object> map = new HashMap<>(defaultOAuth2AccessToken.getAdditionalInformation()); // 旧的附加参数
-                map.put("loginUser", loginUser); // 追加当前登陆用户
+                // 旧的附加参数
+                Map<String, Object> map = new HashMap<>(defaultOAuth2AccessToken.getAdditionalInformation());
+                // 追加当前登陆用户
+                map.put("loginUser", loginUser);
 
                 defaultOAuth2AccessToken.setAdditionalInformation(map);
             }
@@ -142,13 +143,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @param clients
      * @throws Exception
      */
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//		clients.inMemory().withClient("system").secret(bCryptPasswordEncoder.encode("system"))
-//				.authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("app")
-//				.accessTokenValiditySeconds(3600);
+       /* clients.inMemory().withClient("system").secret(bCryptPasswordEncoder.encode("system"))	        .authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("app")	        .accessTokenValiditySeconds(3600);
 
-//		clients.jdbc(dataSource);
+		clients.jdbc(dataSource);*/
+
         // 2018.06.06，这里优化一下，详细看下redisClientDetailsService这个实现类
         clients.withClientDetails(redisClientDetailsService);
         redisClientDetailsService.loadAllClientToCache();
@@ -175,7 +176,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             @Override
             public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
                 OAuth2AccessToken oAuth2AccessToken = super.enhance(accessToken, authentication);
-                addLoginUserInfo(oAuth2AccessToken, authentication); // 2018.07.13 将当前用户信息追加到登陆后返回数据里
+                // 2018.07.13 将当前用户信息追加到登陆后返回数据里
+                addLoginUserInfo(oAuth2AccessToken, authentication);
                 return oAuth2AccessToken;
             }
         };

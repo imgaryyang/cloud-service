@@ -20,7 +20,7 @@ public abstract class AbstractFileService implements FileService {
 		FileInfo fileInfo = FileUtil.getFileInfo(file);
 		// 先根据文件md5查询记录
 		FileInfo oldFileInfo = getFileDao().getById(fileInfo.getId());
-
+		
 		if (oldFileInfo != null) {// 如果已存在文件，避免重复上传同一个文件
 			return oldFileInfo;
 		}

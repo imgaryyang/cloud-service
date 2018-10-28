@@ -18,7 +18,7 @@ import com.cloud.common.constants.PermitAllUrl;
 @EnableResourceServer
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter   {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {

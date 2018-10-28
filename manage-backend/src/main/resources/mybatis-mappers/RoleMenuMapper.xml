@@ -15,7 +15,7 @@
 		</where>
 	</update>
 
-	<select id="findMenusByRoleIds" resultType="Menu">
+	<select id="findMenusByRoleIds" resultType="com.cloud.backend.model.Menu">
 		select t.* from menu t
 		inner join role_menu r on r.menuId = t.id
 		where

@@ -29,7 +29,7 @@
 		<include refid="where" />
 	</select>
 
-	<select id="findData" resultType="Log">
+	<select id="findData" resultType="com.cloud.model.log.Log">
 		select * from t_log t
 		<include refid="where" />
 		order by t.id desc
